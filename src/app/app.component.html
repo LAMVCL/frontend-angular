@@ -6,7 +6,7 @@
       <button class="btn btn-primary w-100 mt-2" (click)="agregar(valorInput.value);limpiar();">Agregar</button>
     </div>
     <div class="col">
-      <ul *ngFor="let tarea of lista">
+      <ul *ngFor="let tarea of api.todoList">
         <li class="mb-2">
           {{tarea.name}} 
         </li>

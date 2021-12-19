@@ -9,24 +9,14 @@ export class AppComponent {
 
   title = 'FRONT-END TODO LIST';
   public inputTarea: string = '';
-  public lista: any[] = [];
   //Constructor para traer la API
-  constructor(private api: ApiService){
+  constructor(public api: ApiService){
       
-  }
-
-  //Metodo para traer TODO's
-  getLista():void{
-    this.api.getTodoList().subscribe(
-      (data: any[]) => {
-        this.lista = data;
-      }
-    );
   }
 
   //Al iniciar traemos la lista de TODO's
   ngOnInit(){
-    this.getLista();
+    this.api.refreshTodoList();
   }
 
   //Para limpiar el formulario
@@ -41,13 +31,17 @@ export class AppComponent {
       id:0,
       name: valor
     }
+    this.api.refreshTodoList();
     this.api.addTodo(newTodo).subscribe();
+    this.api.refreshTodoList();
     
   }
 
   //Eliminar item de la lista TODO
   eliminar(id: number):void{
+    this.api.refreshTodoList();
     this.api.deleteTodo(id).subscribe();
+    this.api.refreshTodoList();
   }
 
   //Actualizar item de la lista TODO
@@ -56,7 +50,9 @@ export class AppComponent {
       id: id,
       name: valor
     }
+    this.api.refreshTodoList();
     this.api.updateTodo(updatedTodo).subscribe();
+    this.api.refreshTodoList();
   }
 
   
