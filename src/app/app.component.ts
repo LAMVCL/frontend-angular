@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from './api.service';
 @Component({
   selector: 'app-root',
@@ -19,28 +19,27 @@ export class AppComponent {
     this.api.refreshTodoList();
   }
 
-  //Para limpiar el formulario
-  limpiar():void{
-    this.inputTarea = '';
-  }
-
   //Agregar item a la lista TODO
   agregar(valor: string):void{
-
     let newTodo = {
       id:0,
       name: valor
     }
+    if(this.inputTarea.length < 20){
+      this.api.addTodo(newTodo).subscribe();
+      this.inputTarea = '';
+    }else{
+      alert('La tarea no puede tener mas de 20 caracteres');
+      this.inputTarea = '';
+    }
     this.api.refreshTodoList();
-    this.api.addTodo(newTodo).subscribe();
     this.api.refreshTodoList();
-    
   }
 
   //Eliminar item de la lista TODO
   eliminar(id: number):void{
-    this.api.refreshTodoList();
     this.api.deleteTodo(id).subscribe();
+    this.api.refreshTodoList();
     this.api.refreshTodoList();
   }
 
@@ -50,8 +49,13 @@ export class AppComponent {
       id: id,
       name: valor
     }
-    this.api.refreshTodoList();
+    if(this.inputTarea.length === 0){
+      alert('La tarea no puede estar vacia');
+      this.inputTarea = '';
+    }
     this.api.updateTodo(updatedTodo).subscribe();
+    this.inputTarea = '';
+    this.api.refreshTodoList();
     this.api.refreshTodoList();
   }
 
