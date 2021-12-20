@@ -25,11 +25,11 @@ export class AppComponent {
       id:0,
       name: valor
     }
-    if(this.inputTarea.length < 20){
+    if(this.inputTarea.length < 25){
       this.api.addTodo(newTodo).subscribe();
       this.inputTarea = '';
     }else{
-      alert('La tarea no puede tener mas de 20 caracteres');
+      alert('La tarea no puede tener mas de 25 caracteres');
       this.inputTarea = '';
     }
     this.api.refreshTodoList();
@@ -49,14 +49,16 @@ export class AppComponent {
       id: id,
       name: valor
     }
-    if(this.inputTarea.length === 0){
-      alert('La tarea no puede estar vacia');
+    if(this.inputTarea.length === 0 || this.inputTarea.length > 25){
+      alert('La tarea no puede estar vacia o ser mayor a 25 caracteres');
       this.inputTarea = '';
+    }else{
+      this.api.updateTodo(updatedTodo).subscribe();
+      this.inputTarea = '';
+      this.api.refreshTodoList();
+      this.api.refreshTodoList();
     }
-    this.api.updateTodo(updatedTodo).subscribe();
-    this.inputTarea = '';
-    this.api.refreshTodoList();
-    this.api.refreshTodoList();
+    
   }
 
   
