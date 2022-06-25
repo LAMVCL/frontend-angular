@@ -7,14 +7,22 @@
     </div>
     <div class="col col-tareas">
       <h2 class="mb-2">Mis tareas</h2>
-      <ul *ngFor="let tarea of api.todoList">
-        <li class="mb-2">
-          {{tarea.name}} 
-        </li>
-        <button class="btn btn-warning me-2" (click)="actualizar(tarea.id, valorInput.value)">Actualizar</button>
-        <button class="btn btn-danger" (click)="eliminar(tarea.id);">Eliminar</button> 
-        <hr/>
-      </ul>
+      <div *ngIf="api.todoList.length > 0; else elseBlock">
+        <ul *ngFor="let tarea of api.todoList">
+          <li class="mb-2">
+            {{tarea.name}} 
+          </li>
+          <button class="btn btn-warning me-2" (click)="actualizar(tarea.id, valorInput.value)">Actualizar</button>
+          <button class="btn btn-danger" (click)="eliminar(tarea.id);">Eliminar</button> 
+          <hr/>
+        </ul>
+      </div>
+      <ng-template #elseBlock>
+        <div class="alert alert-danger" role="alert">
+          No se lograron cargar las tareas...
+        </div>
+      </ng-template>
+      
     </div>
   </div>
 </div>
