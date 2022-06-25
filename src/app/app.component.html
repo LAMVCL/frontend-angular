@@ -7,7 +7,7 @@
     </div>
     <div class="col col-tareas">
       <h2 class="mb-2">Mis tareas</h2>
-      <div *ngIf="api.todoList.length > 0; else elseBlock">
+      <div *ngIf="api.todoList !== null; else elseBlock">
         <ul *ngFor="let tarea of api.todoList">
           <li class="mb-2">
             {{tarea.name}} 

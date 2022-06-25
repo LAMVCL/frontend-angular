@@ -10,7 +10,7 @@ export class ApiService {
 
   readonly URL_API = 'http://127.0.0.1:8000/api/';
 
-  public todoList: any[] = [];
+  public todoList: any = [];
 
   constructor(private http: HttpClient) { 
 
@@ -19,6 +19,9 @@ export class ApiService {
   refreshTodoList(): void{
     this.http.get(this.URL_API).subscribe(res => {
       this.todoList = [...res as []];
+    },
+    error => {
+      this.todoList = null
     });
   }
 
